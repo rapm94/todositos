@@ -18,7 +18,7 @@ dependencies:
   freezed: ^2.3.2
   freezed_annotation: ^2.2.0
   get_it: ^7.2.0
-  hooks_riverpod: ^2.3.5
+  hooks_riverpod: ^2.3.6
   injectable: ^2.1.1
   intl: ^0.17.0
   loggy: ^2.0.3
