@@ -1,16 +1,14 @@
 import 'package:injectable/injectable.dart';
 import 'package:todositos/domain/models/todo_model.dart';
-import 'package:todositos/domain/models/todo_request_model.dart';
-import 'package:todositos/domain/models/todo_response_model.dart';
-import 'package:todositos/domain/repository/todos/todoRepository.dart';
+import 'package:todositos/domain/repository/todos/todo_repository.dart';
 
 abstract class TodoInteractor {
-  Future<TodoResponse> getTodos();
+  Future<List<Todo>> getTodos();
   Future<Todo> getTodoById(int id);
-  Future<TodoResponse> getTodosByUserId(int id);
-  Future<TodoResponse> getTodosRamdom();
-  Future<Todo> postTodos(TodoRequestModel todo);
-  Future<Todo> putTodos(TodoRequestModel todo);
+  Future<List<Todo>> getTodosByUserId(int id);
+  Future<List<Todo>> getTodosRamdom();
+  Future<Todo> postTodos(Todo todo);
+  Future<Todo> putTodos(Todo todo);
   Future<void> deleteTodos(int id);
 }
 
@@ -21,7 +19,7 @@ class TodoInteractorImplementation implements TodoInteractor {
   final TodoRepository todoRepository;
 
   @override
-  Future<TodoResponse> getTodos() {
+  Future<List<Todo>> getTodos() {
     return todoRepository.getTodos();
   }
 
@@ -31,22 +29,22 @@ class TodoInteractorImplementation implements TodoInteractor {
   }
 
   @override
-  Future<TodoResponse> getTodosByUserId(int id) {
+  Future<List<Todo>> getTodosByUserId(int id) {
     return todoRepository.getTodosByUserId(id);
   }
 
   @override
-  Future<TodoResponse> getTodosRamdom() {
+  Future<List<Todo>> getTodosRamdom() {
     return todoRepository.getTodosRamdom();
   }
 
   @override
-  Future<Todo> postTodos(TodoRequestModel todo) {
+  Future<Todo> postTodos(Todo todo) {
     return todoRepository.postTodos(todo);
   }
 
   @override
-  Future<Todo> putTodos(TodoRequestModel todo) {
+  Future<Todo> putTodos(Todo todo) {
     return todoRepository.putTodos(todo);
   }
 

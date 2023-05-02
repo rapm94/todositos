@@ -15,18 +15,10 @@ class TodosListPresenter extends RequestProvider<List<Todo>> {
 
   final TodoInteractor _todoInteractor;
 
-  List<Todo> _todos = [];
-
-  List<Todo> get todos => _todos;
-
   Future<void> getTodos() async {
     await executeRequest<List<Todo>>(
       requestBuilder: () async {
-        final todoResponse = await _todoInteractor.getTodos();
-        return todoResponse.todos ?? [];
-      },
-      valueHandler: (todos) {
-        _todos = todos;
+        final todos = await _todoInteractor.getTodos();
         return todos;
       },
     );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:todositos/app/flavor_config.dart';
-import 'package:todositos/presentation/todos/todoListScreen.dart';
+import 'package:todositos/presentation/todos/todo_list_screen.dart';
 
 class TododitoApp extends ConsumerWidget {
   const TododitoApp({super.key});

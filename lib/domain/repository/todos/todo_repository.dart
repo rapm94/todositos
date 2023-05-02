@@ -1,16 +1,14 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:todositos/domain/models/todo_model.dart';
-import 'package:todositos/domain/models/todo_request_model.dart';
-import 'package:todositos/domain/models/todo_response_model.dart';
 
 abstract class TodoRepository {
-  Future<TodoResponse> getTodos();
+  Future<List<Todo>> getTodos();
   Future<Todo> getTodoById(int id);
-  Future<TodoResponse> getTodosByUserId(int id);
-  Future<TodoResponse> getTodosRamdom();
-  Future<Todo> postTodos(TodoRequestModel todo);
-  Future<Todo> putTodos(TodoRequestModel todo);
+  Future<List<Todo>> getTodosByUserId(int id);
+  Future<List<Todo>> getTodosRamdom();
+  Future<Todo> postTodos(Todo todo);
+  Future<Todo> putTodos(Todo todo);
   Future<void> deleteTodos(int id);
 }
 
@@ -21,12 +19,12 @@ class TodoRepositoryImpl implements TodoRepository {
   final Dio _dio;
 
   @override
-  Future<TodoResponse> getTodos() async {
+  Future<List<Todo>> getTodos() async {
     const extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final headers = <String, dynamic>{};
     final result = await _dio.fetch<List<dynamic>>(
-      _setStreamType<TodoResponse>(
+      _setStreamType<List<Todo>>(
         Options(method: 'GET', headers: headers, extra: extra)
             .compose(
               _dio.options,
@@ -36,7 +34,9 @@ class TodoRepositoryImpl implements TodoRepository {
             .copyWith(baseUrl: _dio.options.baseUrl),
       ),
     );
-    final value = TodoResponse.fromJson(result.data! as Map<String, dynamic>);
+    final value = result.data!
+        .map((dynamic i) => Todo.fromJson(i as Map<String, dynamic>))
+        .toList();
     return value;
   }
 
@@ -46,7 +46,7 @@ class TodoRepositoryImpl implements TodoRepository {
     final queryParameters = <String, dynamic>{};
     final headers = <String, dynamic>{};
     final result = await _dio.fetch<Map<String, dynamic>>(
-      _setStreamType<TodoResponse>(
+      _setStreamType<Todo>(
         Options(method: 'GET', headers: headers, extra: extra)
             .compose(
               _dio.options,
@@ -61,12 +61,12 @@ class TodoRepositoryImpl implements TodoRepository {
   }
 
   @override
-  Future<TodoResponse> getTodosByUserId(int id) async {
+  Future<List<Todo>> getTodosByUserId(int id) async {
     const extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final headers = <String, dynamic>{};
     final result = await _dio.fetch<List<dynamic>>(
-      _setStreamType<TodoResponse>(
+      _setStreamType<List<Todo>>(
         Options(method: 'GET', headers: headers, extra: extra)
             .compose(
               _dio.options,
@@ -76,17 +76,19 @@ class TodoRepositoryImpl implements TodoRepository {
             .copyWith(baseUrl: _dio.options.baseUrl),
       ),
     );
-    final value = TodoResponse.fromJson(result.data! as Map<String, dynamic>);
+    final value = result.data!
+        .map((dynamic i) => Todo.fromJson(i as Map<String, dynamic>))
+        .toList();
     return value;
   }
 
   @override
-  Future<TodoResponse> getTodosRamdom() async {
+  Future<List<Todo>> getTodosRamdom() async {
     const extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final headers = <String, dynamic>{};
     final result = await _dio.fetch<List<dynamic>>(
-      _setStreamType<TodoResponse>(
+      _setStreamType<List<Todo>>(
         Options(method: 'GET', headers: headers, extra: extra)
             .compose(
               _dio.options,
@@ -96,12 +98,14 @@ class TodoRepositoryImpl implements TodoRepository {
             .copyWith(baseUrl: _dio.options.baseUrl),
       ),
     );
-    final value = TodoResponse.fromJson(result.data! as Map<String, dynamic>);
+    final value = result.data!
+        .map((dynamic i) => Todo.fromJson(i as Map<String, dynamic>))
+        .toList();
     return value;
   }
 
   @override
-  Future<Todo> postTodos(TodoRequestModel todo) async {
+  Future<Todo> postTodos(Todo todo) async {
     const extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final headers = <String, dynamic>{};
@@ -110,7 +114,7 @@ class TodoRepositoryImpl implements TodoRepository {
         Options(method: 'POST', headers: headers, extra: extra)
             .compose(
               _dio.options,
-              '/todos',
+              '/todos/add',
               queryParameters: queryParameters,
               data: todo.toJson(),
             )
@@ -122,7 +126,7 @@ class TodoRepositoryImpl implements TodoRepository {
   }
 
   @override
-  Future<Todo> putTodos(TodoRequestModel todo) async {
+  Future<Todo> putTodos(Todo todo) async {
     const extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final headers = <String, dynamic>{};

@@ -6,6 +6,7 @@ part of 'todo_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+// ignore: non_constant_identifier_names
 _$_Todo _$$_TodoFromJson(Map<String, dynamic> json) => _$_Todo(
       id: json['id'] as int?,
       todo: json['todo'] as String?,
@@ -13,6 +14,7 @@ _$_Todo _$$_TodoFromJson(Map<String, dynamic> json) => _$_Todo(
       userId: json['userId'] as int?,
     );
 
+// ignore: non_constant_identifier_names
 Map<String, dynamic> _$$_TodoToJson(_$_Todo instance) => <String, dynamic>{
       'id': instance.id,
       'todo': instance.todo,
